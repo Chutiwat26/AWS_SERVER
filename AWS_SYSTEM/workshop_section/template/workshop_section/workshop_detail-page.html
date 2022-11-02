@@ -1,0 +1,76 @@
+{% extends 'workshop_section/workshop_section-base.html' %}
+
+{% block workshop-title-content %}
+  <title>Workshop page</title>
+{% endblock workshop-title-content %}
+  
+   
+{% block workshop-main-content %}
+  <main class="form-group w-60 m-auto">
+    <h1 class="h1 mb-3 fw-normal">Drawing detail</h1>
+    <br>
+    {% if drawing_detail.title %}
+      <h3 class="h4">ชื่องาน: {{ drawing_detail.title }}</h3>
+      <br>
+      <h3 class="h4">ชื่อลูกค้า: {{ drawing_detail.customer }}</h3>
+      <br>
+      <h3 class="h4">ผู้ออก drawing: {{ drawing_detail.draftsman }}</h3>
+      <br>
+      <h3 class="h4">รายละเอียด:</h3>
+      <br>
+      <div class="container-fluid">
+        <h3 class="h4">{{ description }}</h3>
+      </div>
+      <hr>
+      <br>
+      {% for picture in pictures %}
+        {% if picture %}
+        <br>
+          <div style="display: grid; grid-template-columns: auto auto; gap: 10px; padding: 10px;">
+            <div>
+            <img src="{{ picture.picture_path.url }}" alt="" width="30%" max-width="300px">
+            </div>
+            <div>
+            {% if picture.picture_description != "No picture description." %}
+              <h3 class="h4">รายละเอียดรูปภาพ:</h3>
+              <br>
+              <div class="container-fluid">
+                <h3 class="h4">{{ picture.picture_description }}</h3>
+              </div>
+            {% endif %}
+            </div>
+          </div>
+          <br>
+          <hr>
+        {% endif %}
+      {% endfor %}
+      {% if drawing_detail.path %}
+      <h1 class="h3">{{ drawing_detail.drawing_description }}</h1>
+      <center>
+        <br>
+        <embed src="{{ drawing_detail.path.url }}" type="application/pdf" view="Fit" width="100%" height="800px"></embed>
+        <h1 class="h3">
+          <p>หากไฟล์ Drawing ไม่แสดงข้อมูลกรุณา <a href="{{ drawing_detail.path.url }}" target="_blank">กดที่นี่เพื่อเปิดไฟล์ Drawing</a></p>
+        </h1>
+      </center>
+        <br><hr><br>
+          <div class="container-fluid form-group" style="text-align: center; justify-content: right; padding-top: 10px; padding-bottom: 10px;">
+          <form method="POST" novalidate>
+            {% csrf_token %}
+            {% if position == 'technician' %}
+              <button class="w-40 btn btn-lg btn-primary" type="submit" name="workshop_submit" >ส่งตรวจสอบงาน</button>
+            {% elif position == 'quality control' %}
+              <div style="display: grid; grid-template-columns: auto auto auto; gap: 10px; padding: 10px;">
+                <div><button class="w-40 btn btn-lg btn-danger" type="submit" name="reject_submit" >Reject part</button></div>
+                <div><button class="w-40 btn btn-lg btn-warning" type="submit" name="repair_submit" >Repair part</button></div>
+                <div><button class="w-40 btn btn-lg btn-success" type="submit" name="accept_submit" >Accept part</button></div>
+              </div>
+            {% endif %}
+          </form>
+          </div>
+      {% endif %}
+    {% endif %}
+ 
+    
+  </main>
+{% endblock workshop-main-content %}

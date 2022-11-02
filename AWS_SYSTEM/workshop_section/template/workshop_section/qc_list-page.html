@@ -1,0 +1,60 @@
+{% extends 'workshop_section/workshop_section-base.html' %}
+
+{% block workshop-title-content %}
+  <title>Workshop homepage</title>
+{% endblock workshop-title-content %}
+  
+   
+{% block workshop-main-content %}
+  <main class="form-group w-60 m-auto">
+    <h1 class="h3 mb-3 fw-normal">Drawing list</h1>
+    <h3 class="h3"><span>คุณสามารถกดที่ชื่อไฟล์ Drawing เพื่อทำการจัดการและดูรายละเอียดของไฟล์นั้นๆได้</span></h3>
+    <br>
+    <div id="drawing_process">
+        <table class="table table-bordered">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Drawing</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Draftsman</th>
+                    <th scope="col">Submit datetime</th>
+                    <th scope="col">Process datetime</th>
+                    <th scope="col">Finish datetime</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drawing_qc in drawing_qc_list %}
+                    {% if drawing_qc.status != '' %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ drawing_qc.title }}</td>
+                            <td style="max-width: 400px; width: 20vw; word-wrap: break-word;"><a href="{% url 'workshop-detail-page' drawing_qc.drawing_id %}">{{ drawing_qc.drawing_name }}</a></td>
+                            <!--
+                            <td>{{ drawing_process.drawing_name }}</td>
+                            -->
+                            <td>{{ drawing_qc.customer }}</td>
+                            <td>{{ drawing_qc.draftsman }}</td>
+                            <td>{{ drawing_qc.submit_date }}</td>
+                            <td>{{ drawing_qc.process_date }}</td>
+                            <td>{{ drawing_qc.finish_date }}</td>
+                            {% if drawing_qc.status == 'waiting' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: rgb(255, 196, 0);">{{ drawing_qc.status }}</i></td>
+                            {% elif drawing_qc.status == 'processing' or drawing_qc.status == 'repair' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: rgb(255, 94, 0);">{{ drawing_qc.status }}</i></td>
+                            {% elif drawing_qc.status == 'finished' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: green;">{{ drawing_qc.status }}</i></td>
+                            {% else %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: red;">{{ drawing_qc.status }}</i></td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+  </main>
+{% endblock workshop-main-content %}

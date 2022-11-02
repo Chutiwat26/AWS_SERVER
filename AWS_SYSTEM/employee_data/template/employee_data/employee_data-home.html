@@ -1,0 +1,20 @@
+{% extends 'employee_data/employee_data-base.html' %}
+
+{% block employee-title-content %}
+  <title>Intranet Homepage</title>
+{% endblock employee-title-content %}
+  
+   
+{% block employee-main-content %}
+{% if user.is_authenticated %}
+  <h1>Hello, &nbsp; {{ request.user.first_name }} &nbsp; {{ request.user.last_name }} </h1>
+  <h2>Waiting HR or admin assign your position in the company.</h2>
+{% endif %}
+
+
+{% endblock employee-main-content %}
+
+
+    
+  
+</html>

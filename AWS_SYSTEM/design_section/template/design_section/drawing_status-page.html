@@ -1,0 +1,214 @@
+{% extends 'design_section/design_section-base.html' %}
+
+{% block design-title-content %}
+  <title>Drawing page</title>
+{% endblock design-title-content %}
+  
+   
+{% block design-main-content %}
+  <main class="form-group w-60 m-auto">
+    <h1 class="h3 mb-3 fw-normal">Drawing status</h1>
+    <h3 class="h3"><span>คุณสามารถกดที่ชื่อไฟล์ Drawing เพื่อทำการจัดการและดูรายละเอียดของไฟล์นั้นๆได้</span></h3>
+    <br>
+    <div class="tab">
+        <input type="button" value="Waiting" class="tablinks" onclick="TabDetail(event, 'drawing_wait');">
+        <input type="button" value="Processing" class="tablinks" onclick="TabDetail(event, 'drawing_process');">
+        <input type="button" value="Finished" class="tablinks" onclick="TabDetail(event, 'drawing_finish');">
+        <input type="button" value="Other" class="tablinks" onclick="TabDetail(event, 'drawing_other');">
+    </div>
+    <br>
+    <script>
+        function TabDetail(evt, TabName) {
+          var i, tabcontent, tablinks;
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(TabName).style.display = "block";
+          evt.currentTarget.className += " active";
+        };
+    </script>
+    <div id="drawing_wait" class="tabcontent">
+        <table class="table table-bordered">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Drawing</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Draftsman</th>
+                    <th scope="col">Submit datetime</th>
+                    <th scope="col">Process datetime</th>
+                    <th scope="col">Finish datetime</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drawing_wait in drawing_wait_list %}
+                    {% if drawing_wait != '' %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ drawing_wait.title }}</td>
+                            <td style="max-width: 400px; width: 20vw; word-wrap: break-word;"><a href="{% url 'drawing-detail-page' drawing_wait.drawing_id %}">{{ drawing_wait.drawing_name }}</a></td>
+                            <td>{{ drawing_wait.customer }}</td>
+                            <td>{{ drawing_wait.draftsman }}</td>
+                            <td>{{ drawing_wait.submit_date }}</td>
+                            <td>{{ drawing_wait.process_date }}</td>
+                            <td>{{ drawing_wait.finish_date }}</td>
+                            {% if drawing_wait.status == 'waiting' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: rgb(255, 196, 0);">{{ drawing_wait.status }}</i></td>
+                            {% elif drawing_wait.status == 'processing' or drawing_process.status == 'repair' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: rgb(255, 94, 0);">{{ drawing_wait.status }}</i></td>
+                            {% elif drawing_wait.status == 'finished' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: green;">{{ drawing_wait.status }}</i></td>
+                            {% else %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: red;">{{ drawing_wait.status }}</i></td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="drawing_process" class="tabcontent">
+        <table class="table table-bordered">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Drawing</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Responsible person</th>
+                    <th scope="col">Submit datetime</th>
+                    <th scope="col">Process datetime</th>
+                    <th scope="col">Finish datetime</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drawing_process in drawing_process_list %}
+                    {% if drawing_process.status != '' %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ drawing_process.title }}</td>
+                            <!--
+                            <td style="max-width: 400px; width: 20vw; word-wrap: break-word;"><a href="{% url 'drawing-detail-page' drawing_process.drawing_id %}">{{ drawing_process.drawing_name }}</a></td>
+                            -->
+                            <td><a href="{{ drawing_process.path.url }}" target="_blank">{{ drawing_process.drawing_name }}</a></td>
+                            <td>{{ drawing_process.customer }}</td>
+                            <td>{{ drawing_process.responsible_person }}</td>
+                            <td>{{ drawing_process.submit_date }}</td>
+                            <td>{{ drawing_process.process_date }}</td>
+                            <td>{{ drawing_process.finish_date }}</td>
+                            {% if drawing_process.status == 'waiting' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: rgb(255, 196, 0);">{{ drawing_process.status }}</i></td>
+                            {% elif drawing_process.status == 'processing' or drawing_process.status == 'repair' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: rgb(255, 94, 0);">{{ drawing_process.status }}</i></td>
+                            {% elif drawing_process.status == 'finished' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: green;">{{ drawing_process.status }}</i></td>
+                            {% else %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: red;">{{ drawing_process.status }}</i></td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="drawing_finish" class="tabcontent">
+        <table class="table table-bordered">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Drawing</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Draftsman</th>
+                    <th scope="col">Submit datetime</th>
+                    <th scope="col">Process datetime</th>
+                    <th scope="col">Finish datetime</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drawing_finish in drawing_finish_list %}
+                    {% if drawing_finish.status != '' %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ drawing_finish.title }}</td>
+                            <!--
+                            <td style="max-width: 400px; width: 20vw; word-wrap: break-word;"><a href="{% url 'drawing-detail-page' drawing_finish.drawing_id %}">{{ drawing_finish.drawing_name }}</a></td>
+                            -->
+                            <td><a href="{{ drawing_finish.path.url }}" target="_blank">{{ drawing_finish.drawing_name }}</a></td>
+                            <td>{{ drawing_finish.customer }}</td>
+                            <td>{{ drawing_finish.draftsman }}</td>
+                            <td>{{ drawing_finish.submit_date }}</td>
+                            <td>{{ drawing_finish.process_date }}</td>
+                            <td>{{ drawing_finish.finish_date }}</td>
+                            {% if drawing_finish.status == 'waiting' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: rgb(255, 196, 0);">{{ drawing_finish.status }}</i></td>
+                            {% elif drawing_finish.status == 'processing' or drawing_process.status == 'repair' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: rgb(255, 94, 0);">{{ drawing_finish.status }}</i></td>
+                            {% elif drawing_finish.status == 'finished' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: green;">{{ drawing_finish.status }}</i></td>
+                            {% else %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: red;">{{ drawing_finish.status }}</i></td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="drawing_other" class="tabcontent">
+        <table class="table table-bordered">
+            <thead class="table-secondary">
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Drawing</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Draftsman</th>
+                    <th scope="col">Submit datetime</th>
+                    <th scope="col">Process datetime</th>
+                    <th scope="col">Finish datetime</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for drawing_other in drawing_other_list %}
+                    {% if drawing_other.status != '' %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ drawing_other.title }}</td>
+                            <!--
+                            <td style="max-width: 400px; width: 20vw; word-wrap: break-word;"><a href="{% url 'drawing-detail-page' drawing_other.drawing_id %}">{{ drawing_other.drawing_name }}</a></td>
+                            -->
+                            <td><a href="{{ drawing_other.path.url }}" target="_blank">{{ drawing_other.drawing_name }}</a></td>
+                            <td>{{ drawing_other.customer }}</td>
+                            <td>{{ drawing_other.draftsman }}</td>
+                            <td>{{ drawing_other.submit_date }}</td>
+                            <td>{{ drawing_other.process_date }}</td>
+                            <td>{{ drawing_other.finish_date }}</td>
+                            {% if drawing_other.status == 'waiting' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: rgb(255, 196, 0);">{{ drawing_other.status }}</i></td>
+                            {% elif drawing_other.status == 'processing' or drawing_process.status == 'repair' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: rgb(255, 94, 0);">{{ drawing_other.status }}</i></td>
+                            {% elif drawing_other.status == 'finished' %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: green;">{{ drawing_other.status }}</i></td>
+                            {% else %}
+                                <td><i class="fa fa-check" style="font-size: 18px; color: red;">{{ drawing_other.status }}</i></td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+  </main>
+{% endblock design-main-content %}

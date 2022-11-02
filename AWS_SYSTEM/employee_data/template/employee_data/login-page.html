@@ -1,0 +1,34 @@
+{% extends 'employee_data/employee_data-base.html' %}
+
+{% block employee-title-content %}
+  <title>Log in</title>
+{% endblock employee-title-content %}
+  
+   
+{% block employee-main-content %}
+  <main class="form-signin w-80 m-auto text-center">
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      <img class="mb-4" src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+      <h1 class="h3 mb-3 fw-normal">กรุณาลงชื่อเข้าใช้งาน</h1>
+
+      {% if warning_msg %}
+        <h3 class="p-3 mb-2 bg-danger text-white">{{ warning_msg }}</h3>
+      {% endif %}
+
+      <div class="form-floating">
+        <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+        <label for="username">Username</label>
+      </div>
+      <br>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        <label for="password">Password</label>
+      </div>
+      <br>
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+      <br><br>
+      <span><a class="py-2 text-dark text-center h5 text-underline-hover" href="{% url 'register-page' %}">Register</a></span>
+    </form>
+  </main>
+{% endblock employee-main-content %}

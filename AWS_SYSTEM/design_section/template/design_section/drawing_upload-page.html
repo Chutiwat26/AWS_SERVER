@@ -1,0 +1,175 @@
+{% extends 'design_section/design_section-base.html' %}
+
+{% block design-title-content %}
+  <title>Drawing page</title>
+{% endblock design-title-content %}
+  
+   
+{% block design-main-content %}
+  <main class="form-group w-60 m-auto">
+    <h1 class="h3 mb-3 fw-normal">Upload drawing to system</h1>
+    <form method="POST" enctype="multipart/form-data" novalidate>
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="drawing_customer">ระบุชื่อลูกค้า</label>
+        <!--
+        <input type="text" class="form-control" id="drawing_customer" name="drawing_customer" placeholder="*กรุณาระบุชื่อลูกค้า" required>
+        -->
+        <select class="form-select form-select-lg mb-3" aria-label="Default select example" name="drawing_customer" id="drawing_customer">
+          <option selected>กรุณาเลือกรายชื่อลูกค้า</option>
+        {% for customer in customer_list %}
+          <option value="{{ customer.initial_name }}">{{ customer.initial_name }}</option>
+        {% endfor %}
+        </select>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="drawing_title">ระบุชื่องาน/PO</label>
+        <input type="text" class="form-control" id="drawing_title" name="drawing_title" placeholder="*กรุณาระบุชื่องาน" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="drawing_description">รายละเอียด</label>
+        <textarea class="form-control" style="height:30vh;" id="drawing_description" name="drawing_description" placeholder="กรุณาระบุรายละเอียด"></textarea>
+      </div>
+      <br><br>
+      <h3 class="h3">กรุณาแนบไฟล์รูป/ไฟล์, drawing/ไฟล์, solidwork ด้านล่าง </h3>
+      <div class="tab">
+        <input type="button" value="Picture" class="tablinks" onclick="TabDetail(event, 'Picture');">
+        <input type="button" value="Drawing" class="tablinks" onclick="TabDetail(event, 'Drawing');">
+        <!--
+        <input type="button" value="Solidwork file" class="tablinks" onclick="TabDetail(event, 'Solidwork');">
+        -->
+      </div>
+      <br>
+      <script>
+        function TabDetail(evt, TabName) {
+          var i, tabcontent, tablinks;
+          console.log(TabName);
+          tabcontent = document.getElementsByClassName("tabcontent");
+          for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+          }
+          tablinks = document.getElementsByClassName("tablinks");
+          for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+          }
+          document.getElementById(TabName).style.display = "block";
+          evt.currentTarget.className += " active";
+        };
+      </script>
+      <div id="Picture" class="tabcontent">
+        <div class="mb-3">
+          <label for="drawing_pic1">แนบรูปที่ 1</label>
+          <input type="file" class="form-control" accept="image/png, image/gif, image/jpeg" data-max-file-size="3M" id="drawing_pic1" name="drawing_pic1" onchange="PreviewImage1();">
+          <img id="drawing_pic1_preview" style="width: 500px;">
+          <div id="pic1_detail_block">
+            <label for="pic1_detail">รายละเอียด</label>
+            <textarea class="form-control" style="height:10vh;" id="pic1_detail" name="pic1_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+            <hr>
+          </div>
+        </div>
+        <br>
+        <div class="mb-3" id="drawing_pic2_block">
+          <label for="drawing_pic2">แนบรูปที่ 2</label>
+          <input type="file" class="form-control" accept="image/png, image/gif, image/jpeg" data-max-file-size="3M" id="drawing_pic2" name="drawing_pic2" onchange="PreviewImage2();">
+          <img id="drawing_pic2_preview" style="width: 500px;">
+          <div id="pic2_detail_block">
+            <label for="pic2_detail">รายละเอียด</label>
+            <textarea class="form-control" style="height:10vh;" id="pic2_detail" name="pic2_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+            <hr>
+          </div>
+        </div>
+        <br>
+        <div class="mb-3" id="drawing_pic3_block" style="display:none;">
+          <label for="drawing_pic3">แนบรูปที่ 3</label>
+          <input type="file" class="form-control" accept="image/png, image/gif, image/jpeg" data-max-file-size="3M" id="drawing_pic3" name="drawing_pic3" onchange="PreviewImage3();">
+          <img id="drawing_pic3_preview" style="width: 500px;">
+          <div id="pic3_detail_block">
+            <label for="pic3_detail">รายละเอียด</label>
+            <textarea class="form-control" style="height:10vh;" id="pic3_detail" name="pic3_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+            <hr>
+          </div>
+        </div>
+        <br>
+        <div class="mb-3" id="drawing_pic4_block" style="display:none;">
+          <label for="drawing_pic4">แนบรูปที่ 4</label>
+          <input type="file" class="form-control" accept="image/png, image/gif, image/jpeg" data-max-file-size="3M" id="drawing_pic4" name="drawing_pic4" onchange="PreviewImage4();">
+          <img id="drawing_pic4_preview" style="width: 500px;">
+          <div id="pic4_detail_block">
+            <label for="pic4_detail">รายละเอียด</label>
+            <textarea class="form-control" style="height:10vh;" id="pic4_detail" name="pic4_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+            <hr>
+          </div>
+        </div>
+        <br>
+        <div class="mb-3" id="drawing_pic5_block" style="display:none;">
+          <label for="drawing_pic5">แนบรูปที่ 5</label>
+          <input type="file" class="form-control" accept="image/png, image/gif, image/jpeg" data-max-file-size="3M" id="drawing_pic5" name="drawing_pic5" onchange="PreviewImage5();">
+          <img id="drawing_pic5_preview" style="width: 500px;">
+          <div id="pic5_detail_block">
+            <label for="pic5_detail">รายละเอียด</label>
+            <textarea class="form-control" style="height:10vh;" id="pic5_detail" name="pic5_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+          </div>
+        </div>
+        <br>
+      </div>
+      <div class="tabcontent" id="Drawing">
+      <div class="form-group">
+        <label for="drawing_file1">ไฟล์ Drawing ที่ 1</label>
+        <input type="file" class="form-control-file" id="drawing_file1" name="drawing_file1" onchange="UploadFile1();" accept="application/pdf">
+        <div id="file1_detail_block">
+          <label for="file1_detail">รายละเอียด</label>
+          <textarea class="form-control" style="height:10vh;" id="file1_detail" name="file1_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="form-group" id="drawing_file2_block">
+        <label for="drawing_file2">ไฟล์ Drawing ที่ 2</label>
+        <input type="file" class="form-control-file" id="drawing_file2" name="drawing_file2" onchange="UploadFile2();" accept="application/pdf">
+        <div id="file2_detail_block">
+          <label for="file2_detail">รายละเอียด</label>
+          <textarea class="form-control" style="height:10vh;" id="file2_detail" name="file2_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="form-group" id="drawing_file3_block">
+        <label for="drawing_file3">ไฟล์ Drawing ที่ 3</label>
+        <input type="file" class="form-control-file" id="drawing_file3" name="drawing_file3" onchange="UploadFile3();" accept="application/pdf">
+        <div id="file3_detail_block">
+          <label for="file3_detail">รายละเอียด</label>
+          <textarea class="form-control" style="height:10vh;" id="file3_detail" name="file3_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="form-group" id="drawing_file4_block">
+        <label for="drawing_file4">ไฟล์ Drawing ที่ 4</label>
+        <input type="file" class="form-control-file" id="drawing_file4" name="drawing_file4" onchange="UploadFile4();" accept="application/pdf">
+        <div id="file4_detail_block">
+          <label for="file4_detail">รายละเอียด</label>
+          <textarea class="form-control" style="height:10vh;" id="file4_detail" name="file4_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="form-group" id="drawing_file5_block">
+        <label for="drawing_file5">ไฟล์ Drawing ที่ 5</label>
+        <input type="file" class="form-control-file" id="drawing_file5" name="drawing_file5" onchange="UploadFile5();" accept="application/pdf">
+        <div id="file5_detail_block">
+          <label for="file5_detail">รายละเอียด</label>
+          <textarea class="form-control" style="height:10vh;" id="file5_detail" name="file5_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+        </div>
+      </div>
+      <br>
+    </div>
+    <br>
+      <button class="w-40 btn btn-lg btn-primary" type="submit">อัพโหลดไฟล์</button>
+      <br><br>
+    </form>
+  </main>
+{% endblock design-main-content %}
+
+

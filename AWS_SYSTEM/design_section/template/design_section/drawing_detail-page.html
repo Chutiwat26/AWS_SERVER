@@ -1,0 +1,110 @@
+{% extends 'design_section/design_section-base.html' %}
+
+{% block design-title-content %}
+  <title>Drawing page</title>
+{% endblock design-title-content %}
+  
+   
+{% block design-main-content %}
+  <main class="form-group w-60 m-auto">
+    <h1 class="h1 mb-3 fw-normal">Drawing detail</h1>
+    <br>
+    {% if drawing_detail.title %}
+      <h3 class="h4">ชื่องาน: {{ drawing_detail.title }}</h3>
+      <br>
+      <h3 class="h4">ชื่อลูกค้า: {{ drawing_detail.customer }}</h3>
+      <br>
+      <h3 class="h4">ผู้ออก drawing: {{ drawing_detail.draftsman }}</h3>
+      <br>
+      <h3 class="h4">รายละเอียด:</h3>
+      <br>
+      <div class="container-fluid">
+        <h3 class="h4">{{ description }}</h3>
+      </div>
+      <hr>
+      <br>
+      {% for picture in pictures %}
+        {% if picture %}
+        <br>
+          <div style="display: grid; grid-template-columns: auto auto; gap: 10px; padding: 10px;">
+            <div>
+            <img src="{{ picture.picture_path.url }}" alt="" width="30%" max-width="300px">
+            </div>
+            <div>
+            {% if picture.picture_description != "No picture description." %}
+              <h3 class="h4">รายละเอียดรูปภาพ:</h3>
+              <br>
+              <div class="container-fluid">
+                <h3 class="h4">{{ picture.picture_description }}</h3>
+              </div>
+            {% endif %}
+            </div>
+          </div>
+          <br>
+          <hr>
+        {% endif %}
+      {% endfor %}
+      {% if drawing_detail.picture1 %}
+        <br>
+        <img src="{{ drawing_detail.picture1.url }}" alt="" width="50%">
+        <br>
+      {% endif %}
+      {% if drawing_detail.picture2 %}
+        <br>
+        <img src="{{ drawing_detail.picture2.url }}" alt="" width="50%">
+        <br>
+      {% endif %}
+      {% if drawing_detail.picture3 %}
+        <br>
+        <img src="{{ drawing_detail.picture3.url }}" alt="" width="50%">
+        <br>
+      {% endif %}
+      {% if drawing_detail.picture4 %}
+        <br>
+        <img src="{{ drawing_detail.picture4.url }}" alt="" width="50%">
+        <br>
+      {% endif %}
+      {% if drawing_detail.picture5 %}
+        <br>
+        <img src="{{ drawing_detail.picture5.url }}" alt="" width="50%">
+        <br>
+      {% endif %}
+      {% if drawing_detail.path %}
+      <center>
+        <br>
+        <embed src="{{ drawing_detail.path.url }}" type="application/pdf" view="Fit" width="100%" height="800px"></embed>
+        <h1 class="h3">
+          <p>หากไฟล์ Drawing ไม่แสดงข้อมูลกรุณา <a href="{{ drawing_detail.path.url }}" target="_blank">กดที่นี่เพื่อเปิดไฟล์ Drawing</a></p>
+        </h1>
+      </center>
+        <br><hr><br>
+          <div class="container-fluid form-group">
+            <h1 style="font-size: 36px;">การมอบหมายงาน</h1>
+            <br>
+          <form method="POST" novalidate>
+            {% csrf_token %}
+            <select class="form-select form-select-lg mb-3" aria-label="Default select example" name="technician_name">
+              <option selected>กรุณาเลือกผู้รับผิดชอบงาน</option>
+            {% for technician in technicians %}
+              <option value="{{ technician }}">{{ technician }}</option>
+            {% endfor %}
+            </select>
+            <label for="drawing_assign_detail" style="font-size:20px" >รายละเอียดถึงช่างเทคนิค</label>
+            <textarea class="form-control" style="height:30vh;" id="drawing_assign_detail" name="drawing_assign_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+            <br>
+            <button class="w-40 btn btn-lg btn-primary" type="submit" name="drawing_assign">มอบหมายงาน</button>
+            <br><hr><br>
+            <h1 style="font-size: 36px; color: red; font-style: normal;">การยกเลิกงาน</h1>
+            <br>
+            <label for="drawing_cancel_detail" style="font-size:20px" >สาเหตุที่ยกเลิกงาน</label>
+            <textarea class="form-control" style="height:30vh;" id="drawing_cancel_detail" name="drawing_cancel_detail" placeholder="กรุณาระบุรายละเอียด"></textarea>
+            <br>
+            <button class="w-40 btn btn-lg btn-danger" type="submit" name="drawing_cancel">ยกเลิกงาน</button>
+          </form>
+          </div>
+      {% endif %}
+    {% endif %}
+ 
+    
+  </main>
+{% endblock design-main-content %}

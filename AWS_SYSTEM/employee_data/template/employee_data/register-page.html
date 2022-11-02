@@ -1,0 +1,53 @@
+{% extends 'employee_data/employee_data-base.html' %}
+
+{% block employee-title-content %}
+  <title>Register</title>
+{% endblock employee-title-content %}
+  
+   
+{% block employee-main-content %}
+  <main class="form-group w-60 m-auto">
+    <h1 class="h3 mb-3 fw-normal">การลงทะเบียนเข้าใช้งานระบบ</h1>
+    <form method="POST" novalidate>
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="firstname">ชื่อจริง</label>
+        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="*Firstname" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="lastname">นามสกุล</label>
+        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="*Lastname" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="telephone">Telephone number</label>
+        <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Telephone number">
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="*Username" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="*Password" required>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="repassword">Re-Password</label>
+        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="*Re-Password" required>
+      </div>
+      <br>
+      
+      <button class="w-40 btn btn-lg btn-primary" type="submit">ลงทะเบียน</button>
+      <br><br>
+    </form>
+  </main>
+{% endblock employee-main-content %}
