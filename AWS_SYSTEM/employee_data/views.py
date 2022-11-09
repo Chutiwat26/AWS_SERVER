@@ -3,46 +3,48 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from .models import *
 from django.contrib.auth.models import User
+import numpy as np
 
 # Create your views here.
 def EmployeeHome(request):
     context = {}
+    login_user_position_list=[]
+    #login_data = request.POST.copy()
+    #login_username = login_data.get('username')
+    login_username = request.user.username
+    user_detail = User.objects.get(username=login_username)
+    login_user_pk = str(user_detail.pk) + "." + user_detail.username
+    #print(login_user_pk)
+    employee_profile = EmployeeProfile.objects.get(user = user_detail.pk)
+    position_list = ProfilePosition.objects.filter(profile_id = employee_profile.pk)
+        
+    for user_position in position_list:
+        position_name = CompanyPosition.objects.get(pk=user_position.position_id.pk)
+        login_user_position_list = np.append(login_user_position_list,position_name.position_name)
+        
+    print(len(login_user_position_list))
+    if len(login_user_position_list) != 0:
+        context['position_list'] = login_user_position_list
+        context['position_status'] = True
+        return render(request, 'employee_data/employee_data-home.html', context)
+    else:
+        context['position_status'] = False
+        return render(request, 'employee_data/employee_data-home.html')
     
-    return render(request, 'employee_data/employee_data-home.html')
 
 def EmployeeLogin(request):
     context = {}
     if request.method == 'POST':
-        login_data = request.POST.copy()
-        login_username = login_data.get('username')
-        employee_profile = EmployeeProfile.objects.all()
-        for user_profile in employee_profile:
-            if str(user_profile.user) == login_username:
-                user_id = user_profile.pk
-                position_id = ProfilePosition.objects.get(profile_id = user_id)
-                user_position = CompanyPosition.objects.get(id=position_id.position_id.pk)
-                login_user_position = user_position.position_name
-                break
-
-        
         form = AuthenticationForm(data = request.POST)
-
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            if login_user_position == 'draftsman' or login_user_position == 'administrator':
-                return redirect('/aws-system-intranet/drawing-upload/')
-            elif login_user_position == 'technician' or login_user_position == 'quality control':
-                return redirect('/aws-system-intranet/workshop-home/')
-            else:
-                return redirect('/aws-system-intranet/intranet-home/')
-            #return redirect('/aws-system-intranet/intranet-home/')
+            return redirect('/aws-system-intranet/intranet-home/') 
         else:
             context['warning_msg'] = 'Username or passward is invalid.'
             print('log in fail')
     else:
         form = AuthenticationForm()
-    
     return render(request, 'employee_data/login-page.html', context)
 
 def EmployeeLogout(request):

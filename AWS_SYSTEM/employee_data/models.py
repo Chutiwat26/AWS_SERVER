@@ -28,7 +28,7 @@ class ProfilePosition(models.Model):
     position_id = models.ForeignKey(CompanyPosition, on_delete=models.DO_NOTHING) 
 
     def __str__(self):
-        text = str(self.profile_id)
+        text = str(self.position_id) + '-' + str(self.profile_id)
         return text
 
     

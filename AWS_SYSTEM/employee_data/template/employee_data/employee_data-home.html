@@ -7,8 +7,16 @@
    
 {% block employee-main-content %}
 {% if user.is_authenticated %}
-  <h1>Hello, &nbsp; {{ request.user.first_name }} &nbsp; {{ request.user.last_name }} </h1>
-  <h2>Waiting HR or admin assign your position in the company.</h2>
+  <h1>สวัสดี &nbsp; คุณ{{ request.user.first_name }} &nbsp; {{ request.user.last_name }} </h1>
+  <br>
+  {% if position_status == True %}
+    <h2>Your position in the company</h2>
+    {% for position in position_list %}
+      <h3>{{ forloop.counter }}.{{ position }}</h3>
+    {% endfor %}
+  {% else %}
+    <h2>Waiting HR or admin assign your position in the company.</h2>
+  {% endif %}
 {% endif %}
 
 
