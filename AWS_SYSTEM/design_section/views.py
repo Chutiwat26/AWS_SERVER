@@ -15,18 +15,33 @@ import numpy as np
 @login_required
 def DraftsMan(request):
     context = {}
+    login_user_position_list = []
     login_user = request.user
     #print('login user is '+str(login_user))
     #print(login_user.pk)
     submitter = User.objects.get(username=login_user)
     login_profile_id = EmployeeProfile.objects.get(user=login_user)
     #print("Profile id is " + str(login_profile_id))
-    login_position_id = ProfilePosition.objects.get(profile_id = login_profile_id)
+    login_position_id = ProfilePosition.objects.filter(profile_id = login_profile_id)
+    for position_id in login_position_id:
+        login_user_position = CompanyPosition.objects.get(position_name=position_id.position_id.position_name)
+        login_user_position_list = np.append(login_user_position_list,login_user_position.position_name)
+
+    if len(login_user_position_list) != 0:
+        context['position_list'] = login_user_position_list
+        context['position_status'] = True
+    else:
+        context['position_status'] = False
+
+    for position_id in login_position_id:
+        login_user_position = CompanyPosition.objects.get(position_name=position_id.position_id.position_name)
+        if login_user_position.position_name == 'draftsman':
+            print(login_user_position.position_name)
+            break
+
     #print("Position id is " + str(login_position_id.pk))
-    login_user_position = CompanyPosition.objects.get(id=login_position_id.pk)
     #print("User position is "+str(login_user_position.position_name))
     if login_user_position.position_name == 'draftsman':
-        context['position'] = str(login_user_position.position_name)
         customer_list = Customers.objects.all()
         context['customer_list'] = customer_list
         if request.method == "POST":
@@ -405,11 +420,20 @@ def DraftsMan(request):
 @login_required
 def DrawingUploadDone(request):
     context = {}
+    login_user_position_list = []
     login_user = request.user
     login_profile_id = EmployeeProfile.objects.get(user=login_user)
-    login_position_id = ProfilePosition.objects.get(profile_id = login_profile_id)
-    login_user_position = CompanyPosition.objects.get(id=login_position_id.pk)
-    context['position'] = login_user_position.position_name
+    login_position_id = ProfilePosition.objects.filter(profile_id = login_profile_id)
+    for position_id in login_position_id:
+        login_user_position = CompanyPosition.objects.get(position_name=position_id.position_id.position_name)
+        login_user_position_list = np.append(login_user_position_list,login_user_position.position_name)
+
+    if len(login_user_position_list) != 0:
+        context['position_list'] = login_user_position_list
+        context['position_status'] = True
+    else:
+        context['position_status'] = False
+        
     return render(request, 'design_section/drawing_upload_done-page.html', context)
 
 @login_required
@@ -530,11 +554,22 @@ def DrawingStatus(request):
                 #print(job_title.title)
 
     context = {}
+    login_user_position_list = []
     login_user = request.user
     login_profile_id = EmployeeProfile.objects.get(user=login_user)
-    login_position_id = ProfilePosition.objects.get(profile_id = login_profile_id)
-    login_user_position = CompanyPosition.objects.get(id=login_position_id.pk)
-    context['position'] = login_user_position.position_name
+    #login_position_id = ProfilePosition.objects.get(profile_id = login_profile_id)
+    #login_user_position = CompanyPosition.objects.get(id=login_position_id.pk)
+    login_position_id = ProfilePosition.objects.filter(profile_id = login_profile_id)
+    for position_id in login_position_id:
+        login_user_position = CompanyPosition.objects.get(position_name=position_id.position_id.position_name)
+        login_user_position_list = np.append(login_user_position_list,login_user_position.position_name)
+
+    if len(login_user_position_list) != 0:
+        context['position_list'] = login_user_position_list
+        context['position_status'] = True
+    else:
+        context['position_status'] = False
+        
     context['drawing_wait_list'] = drawing_wait_list
     context['drawing_process_list'] = drawing_process_list
     context['drawing_finish_list'] = np.flip(drawing_finish_list)
@@ -546,16 +581,24 @@ def ShowDrawingDetail(request, drawing_id):
     context = {}
     picture_list=[]
     technicians=[]
+    login_user_position_list = []
     date_time = datetime.datetime.now()
     login_user = request.user
     #print('login user is '+str(login_user))
     #print(login_user.pk)
     login_profile_id = EmployeeProfile.objects.get(user=login_user)
     #print("Profile id is " + str(login_profile_id))
-    login_position_id = ProfilePosition.objects.get(profile_id = login_profile_id)
-    #print("Position id is " + str(login_position_id.pk))
-    login_user_position = CompanyPosition.objects.get(id=login_position_id.pk)
-    #print("User position is "+str(login_user_position.position_name))
+    login_position_id = ProfilePosition.objects.filter(profile_id = login_profile_id)
+    for position_id in login_position_id:
+        login_user_position = CompanyPosition.objects.get(position_name=position_id.position_id.position_name)
+        login_user_position_list = np.append(login_user_position_list,login_user_position.position_name)
+
+    if len(login_user_position_list) != 0:
+        context['position_list'] = login_user_position_list
+        context['position_status'] = True
+    else:
+        context['position_status'] = False
+        
     drawing_file = DrawingFile.objects.get(pk=drawing_id)
     print(drawing_file)
     job_file = JobFile.objects.get(drawing_id=drawing_file.pk)

@@ -13,7 +13,7 @@ def EmployeeHome(request):
     #login_username = login_data.get('username')
     login_username = request.user.username
     user_detail = User.objects.get(username=login_username)
-    login_user_pk = str(user_detail.pk) + "." + user_detail.username
+    #login_user_pk = str(user_detail.pk) + "." + user_detail.username
     #print(login_user_pk)
     employee_profile = EmployeeProfile.objects.get(user = user_detail.pk)
     position_list = ProfilePosition.objects.filter(profile_id = employee_profile.pk)

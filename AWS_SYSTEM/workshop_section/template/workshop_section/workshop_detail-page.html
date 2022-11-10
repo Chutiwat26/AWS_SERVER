@@ -57,9 +57,9 @@
           <div class="container-fluid form-group" style="text-align: center; justify-content: right; padding-top: 10px; padding-bottom: 10px;">
           <form method="POST" novalidate>
             {% csrf_token %}
-            {% if position == 'technician' %}
+            {% if drawing_detail.status == 'processing' or drawing_detail.status == 'repair' %}
               <button class="w-40 btn btn-lg btn-primary" type="submit" name="workshop_submit" >ส่งตรวจสอบงาน</button>
-            {% elif position == 'quality control' %}
+            {% elif drawing_detail.status == 'QC' %}
               <div style="display: grid; grid-template-columns: auto auto auto; gap: 10px; padding: 10px;">
                 <div><button class="w-40 btn btn-lg btn-danger" type="submit" name="reject_submit" >Reject part</button></div>
                 <div><button class="w-40 btn btn-lg btn-warning" type="submit" name="repair_submit" >Repair part</button></div>

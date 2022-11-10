@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from employee_data.models import *
+import numpy as np
 
 # Create your views here.
 def Home(request):
     context = {}
+    login_user_position_list=[]
     try:
+        '''
         login_user = request.user
         print('login user is '+str(login_user))
         print(login_user.pk)
@@ -15,6 +18,23 @@ def Home(request):
         login_user_position = CompanyPosition.objects.get(id=login_position_id.pk)
         print("User position is "+str(login_user_position.position_name))
         context['position'] = str(login_user_position.position_name)
+        '''
+        login_username = request.user.username
+        user_detail = User.objects.get(username=login_username)
+        login_user_pk = str(user_detail.pk) + "." + user_detail.username
+        employee_profile = EmployeeProfile.objects.get(user = user_detail.pk)
+        position_list = ProfilePosition.objects.filter(profile_id = employee_profile.pk)
+
+        for user_position in position_list:
+            position_name = CompanyPosition.objects.get(pk=user_position.position_id.pk)
+            login_user_position_list = np.append(login_user_position_list,position_name.position_name)
+
+        if len(login_user_position_list) != 0:
+            context['position_list'] = login_user_position_list
+            context['position_status'] = True
+        else:
+            context['position_status'] = False
+            
     except:
         print("no login")
         

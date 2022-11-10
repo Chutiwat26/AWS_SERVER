@@ -109,19 +109,23 @@
 
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         {% if user.is_authenticated %}
-          {% if position == '' %}
-            <a class="me-3 py-2 text-dark text-decoration-none" href="/aws-system-intranet/intranet-home/" >Home&nbsp;&nbsp;|</a>
+          {% if position_status == True %}
+            {% for position in position_list %}
+              {% if position == '' %}
+                <a class="me-3 py-2 text-dark text-decoration-none" href="/aws-system-intranet/intranet-home/" >Home&nbsp;&nbsp;|</a>
+              {% endif %}
+              {% if position == 'technician' or position == 'quality control' %}
+                <a class="me-3 py-2 text-dark text-decoration-none" href="/aws-system-intranet/workshop-home/" >Home&nbsp;&nbsp;|</a>
+              {% endif %}
+              {% if position == 'draftsman' or position == 'administrator' %}
+                <a class="me-3 py-2 text-dark text-decoration-none" href="/aws-system-intranet/drawing-upload/" >Drawing&nbsp;&nbsp;|</a>
+              {% endif %}
+              {% if position == 'draftsman' or position == 'administrator' %}
+                <a class="me-3 py-2 text-dark text-decoration-none" href="/aws-system-intranet/drawing-status/" >Status&nbsp;&nbsp;|</a>
+              {% endif %}
+            {% endfor %}
           {% endif %}
-          {% if position == 'technician' or position == 'quality control' %}
-            <a class="me-3 py-2 text-dark text-decoration-none" href="/aws-system-intranet/workshop-home/" >Home&nbsp;&nbsp;|</a>
-          {% endif %}
-          {% if position == 'draftsman' or position == 'administrator' %}
-            <a class="me-3 py-2 text-dark text-decoration-none" href="/aws-system-intranet/drawing-upload/" >Drawing&nbsp;&nbsp;|</a>
-          {% endif %}
-          {% if position == 'draftsman' or position == 'administrator' %}
-            <a class="me-3 py-2 text-dark text-decoration-none" href="/aws-system-intranet/drawing-status/" >Status&nbsp;&nbsp;|</a>
-          {% endif %}
-          <a class="me-3 py-2 text-dark text-decoration-none" href="#" >Hello, {{ request.user.first_name }} &nbsp; ({{ position }}) &nbsp;&nbsp;|</a>
+          <a class="me-3 py-2 text-dark text-decoration-none" href="#" >Hello, {{ request.user.first_name }} &nbsp;&nbsp;|</a>
             <form method="POST" action='{% url "logout-page" %}' novalidate>
               {% csrf_token %}
               <button type="submit" class="btn btn-danger">Log out</button>
