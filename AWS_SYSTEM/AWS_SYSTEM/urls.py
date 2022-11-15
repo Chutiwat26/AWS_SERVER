@@ -24,6 +24,7 @@ urlpatterns = [
     path('aws-system-intranet/', include('employee_data.urls')),
     path('aws-system-intranet/', include('design_section.urls')),
     path('aws-system-intranet/', include('workshop_section.urls')),
+    path('aws-system-intranet/', include('admin_section.urls')),
     path('aws-customer/', include('customer_section.urls')),
     path('', include('aws_homepage.urls')),
 ]
