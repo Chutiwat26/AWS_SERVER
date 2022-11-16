@@ -42,7 +42,6 @@ def EmployeeLogin(request):
             return redirect('/aws-system-intranet/intranet-home/') 
         else:
             context['warning_msg'] = 'Username or passward is invalid.'
-            print('log in fail')
     else:
         form = AuthenticationForm()
     return render(request, 'employee_data/login-page.html', context)

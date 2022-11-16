@@ -7,42 +7,42 @@
    
 {% block employee-main-content %}
   <main class="form-group w-60 m-auto">
-    <h1 class="h3 mb-3 fw-normal">การลงทะเบียนเข้าใช้งานระบบ</h1>
+    <h1 class="h2 mb-3 fw-normal">การลงทะเบียนเข้าใช้งานระบบ</h1>
     <form method="POST" novalidate>
       {% csrf_token %}
       <div class="form-group">
-        <label for="firstname">ชื่อจริง</label>
-        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="*Firstname" required>
+        <label for="firstname" style="font-size:20px;">ชื่อจริง</label>
+        <input type="text" class="form-control" id="firstname" name="firstname" placeholder="*Firstname" style="height: 50px; font-size:18px;" required>
       </div>
       <br>
       <div class="form-group">
-        <label for="lastname">นามสกุล</label>
-        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="*Lastname" required>
+        <label for="lastname" style="font-size:20px;">นามสกุล</label>
+        <input type="text" class="form-control" id="lastname" name="lastname" placeholder="*Lastname" style="height: 50px; font-size:18px;" required>
       </div>
       <br>
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+        <label for="email" style="font-size:20px;">Email</label>
+        <input type="text" class="form-control" id="email" name="email" placeholder="Email" style="height: 50px; font-size:18px;">
       </div>
       <br>
       <div class="form-group">
-        <label for="telephone">Telephone number</label>
-        <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Telephone number">
+        <label for="telephone" style="font-size:20px;">Telephone number</label>
+        <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Telephone number" style="height: 50px; font-size:18px;" >
       </div>
       <br>
       <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" id="username" name="username" placeholder="*Username" required>
+        <label for="username" style="font-size:20px;">Username</label>
+        <input type="text" class="form-control" id="username" name="username" placeholder="*Username" style="height: 50px; font-size:18px;" required>
       </div>
       <br>
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" name="password" placeholder="*Password" required>
+        <label for="password" style="font-size:20px;">Password</label>
+        <input type="password" class="form-control" id="password" name="password" placeholder="*Password" style="height: 50px; font-size:18px;" required>
       </div>
       <br>
       <div class="form-group">
-        <label for="repassword">Re-Password</label>
-        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="*Re-Password" required>
+        <label for="repassword" style="font-size:20px;">Re-Password</label>
+        <input type="password" class="form-control" id="repassword" name="repassword" placeholder="*Re-Password" style="height: 50px; font-size:18px;" required>
       </div>
       <br>
       
