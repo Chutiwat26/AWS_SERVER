@@ -140,43 +140,43 @@
     <div class="container-fluid py-3">
       <div class="container-fluid">
         <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-inverse">
-              <div class="container-fluid">
-                <div class="navbar-header">
-                  <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                    <img src="{% static 'img/AWS logo.png' %}" style="width:60px;" class="rounded-pill">
-                    <span class="navbar-brand" style="font-size:x-large; color:black;">Advanced & Wise Solution Co.,Ltd.</span>
-                  </a>
-                </div>
-                <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse container-fluid" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav navbar-left">
-                      {% if user.is_authenticated %}
-                        {% if position_status == True %}
-                          {% for position in position_list %}
-                            {% if position == '' %}
-                              <li class="nav-item">
-                                  <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/intranet-home/" >&nbsp;&nbsp;Home</a>
-                              </li>
-                            {% endif %}
-                            {% if position == 'technician' %}
-                              <li class="nav-item">
-                                  <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/workshop-home/" >&nbsp;&nbsp;Workshop</a>
-                              </li>
-                            {% endif %}
-                            {% if position == 'quality control' %}
-                              <li class="nav-item">
-                                  <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/qc-home/" >&nbsp;&nbsp;QC</a>
-                              </li>
-                            {% endif %}
-                            {% if position == 'draftsman' %}
-                              <li class="nav-item">
-                                  <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/drawing-upload/" >&nbsp;&nbsp;Drawing</a>
-                              </li>
-                            {% endif %}
-                            {% if position == 'draftsman' or position == 'administration' %}
+          <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                  <img src="{% static 'img/AWS logo.png' %}" style="width:60px;" class="rounded-pill">
+                  <span class="navbar-brand" style="font-size:x-large; color:black;">Advanced & Wise Solution Co.,Ltd.</span>
+                </a>
+              </div>
+              <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse container-fluid" id="navbarSupportedContent">
+                  <ul class="nav navbar-nav navbar-left">
+                    {% if user.is_authenticated %}
+                      {% if position_status == True %}
+                        {% for position in position_list %}
+                          {% if position == '' %}
+                            <li class="nav-item">
+                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/intranet-home/" >&nbsp;&nbsp;Home</a>
+                            </li>
+                          {% endif %}
+                          {% if position == 'technician' %}
+                            <li class="nav-item">
+                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/workshop-home/" >&nbsp;&nbsp;Workshop</a>
+                            </li>
+                          {% endif %}
+                          {% if position == 'quality control' %}
+                            <li class="nav-item">
+                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/qc-home/" >&nbsp;&nbsp;QC</a>
+                            </li>
+                          {% endif %}
+                          {% if position == 'draftsman' %}
+                            <li class="nav-item">
+                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/drawing-upload/" >&nbsp;&nbsp;Drawing</a>
+                            </li>
+                          {% endif %}
+                          {% if position == 'drawing status' %}
                             <li class="nav-item">
                                 <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/drawing-status/" >&nbsp;&nbsp;Status</a>
                             </li>
@@ -186,44 +186,58 @@
                                 <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/add-assign-postion/" >&nbsp;&nbsp;Admin</a>
                             </li>
                           {% endif %}
-                          {% endfor %}
-                          </ul>
-                        {% endif %}
-                      {% else %}
-                          <li class="nav-item">
-                              <a style="font-size:large;" class="me-3 text-dark text-decoration-none" href="#">Products&Services</a>
-                          </li>
-                          <li class="nav-item">
-                              <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Blog</a>
-                          </li>
-                          <li class="nav-item">
-                              <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Contact us</a>
-                          </li>
-                          <li class="nav-item">
-                              <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="{% url 'about-page'%}">About us</a>
-                          </li>
-                          </ul>
-                      {% endif %}
-                    <ul class="nav navbar-nav navbar-right">
-                      {% if user.is_authenticated %}
-                        <li class="nav-item">
-                          <a style="font-size:large;" class="me-3 text-black text-decoration-none my-2 my-lg-0" href="{% url 'aws-system-home' %}" >สวัสดี &nbsp; คุณ{{ request.user.first_name }} &nbsp;&nbsp;</a>
-                        </li>
-                        <li class="nav-item">
-                          <form class="form-inline my-lg-0 me-3 " method="POST" action='{% url "logout-page" %}' novalidate>
-                            {% csrf_token %}
-                            <button style="font-size:large;" type="submit" class="mt-2 mx-3 btn btn-danger">Log out</button>
-                          </form>
-                        </li>
+                        {% endfor %}
+                      </ul>
                       {% else %}
                         <li class="nav-item">
-                          <a style="font-size:large;" class=" text-black text-decoration-none" href="{% url 'login-page'%}">Log in</a>
+                            <a style="font-size:large;" class="me-3 text-dark text-decoration-none" href="#">Products&Services</a>
                         </li>
+                        <li class="nav-item">
+                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Contact us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="{% url 'about-page'%}">About us</a>
+                        </li>
+                        </ul>
                       {% endif %}
-                    </ul>
-                </div>
+                    {% else %}
+                        <li class="nav-item">
+                            <a style="font-size:large;" class="me-3 text-dark text-decoration-none" href="#">Products&Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Contact us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="{% url 'about-page'%}">About us</a>
+                        </li>
+                        </ul>
+                    {% endif %}
+                  <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                      <li class="nav-item">
+                        <a style="font-size:large;" class="me-3 text-black text-decoration-none my-2 my-lg-0" href="{% url 'aws-system-home' %}" >สวัสดี &nbsp; คุณ{{ request.user.first_name }} &nbsp;&nbsp;</a>
+                      </li>
+                      <li class="nav-item">
+                        <form class="form-inline my-lg-0 me-3 " method="POST" action='{% url "logout-page" %}' novalidate>
+                          {% csrf_token %}
+                          <button style="font-size:large;" type="submit" class="mt-2 mx-3 btn btn-danger">Log out</button>
+                        </form>
+                      </li>
+                    {% else %}
+                      <li class="nav-item">
+                        <a style="font-size:large;" class=" text-black text-decoration-none" href="{% url 'login-page'%}">Log in</a>
+                      </li>
+                    {% endif %}
+                  </ul>
               </div>
-            </nav>
+            </div>
+          </nav>
         </header>
       </div>
 
@@ -231,6 +245,7 @@
         {% block employee-main-content %}
         {% endblock employee-main-content %}
       </div>
+    
       
     </div>
     <script src="{% static 'js/my_js.js' %}"></script>

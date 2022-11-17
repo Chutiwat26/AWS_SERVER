@@ -36,7 +36,7 @@ def DraftsMan(request):
     for position_id in login_position_id:
         login_user_position = CompanyPosition.objects.get(position_name=position_id.position_id.position_name)
         if login_user_position.position_name == 'draftsman':
-            print(login_user_position.position_name)
+            #print(login_user_position.position_name)
             break
 
     #print("Position id is " + str(login_position_id.pk))
@@ -600,11 +600,11 @@ def ShowDrawingDetail(request, drawing_id):
         context['position_status'] = False
         
     drawing_file = DrawingFile.objects.get(pk=drawing_id)
-    print(drawing_file)
+    #print(drawing_file)
     job_file = JobFile.objects.get(drawing_id=drawing_file.pk)
-    print(job_file.job_id)
+    #print(job_file.job_id)
     job_title = JobTiltle.objects.get(pk=job_file.job_id.pk)
-    print(job_title)
+    #print(job_title)
     customer = Customers.objects.get(pk=job_title.customer.pk)
     pictures_id = JobFile.objects.filter(job_id=job_file.job_id.pk)
     #print(pictures_id)
@@ -719,13 +719,13 @@ def ShowDrawingDetail(request, drawing_id):
 
     for picture_id in pictures_id:
         if picture_id.picture_id:
-            print('picture id is ')
-            print(picture_id.picture_id)
+            #print('picture id is ')
+            #print(picture_id.picture_id)
             picture_file = PictureFile.objects.get(pk=picture_id.picture_id.pk)
-            print(picture_file.pk)
+            #print(picture_file.pk)
             try:
                 picture_detail = PictureDetail.objects.get(picture_id=picture_file)
-                print(picture_detail)
+                #print(picture_detail)
                 file_pic_detail = FileDetail.objects.get(pk=picture_detail.detail_id.pk)
                 picture_description = file_pic_detail.detail
             except:
@@ -734,7 +734,7 @@ def ShowDrawingDetail(request, drawing_id):
                 "picture_path":picture_file.path,
                 "picture_description":picture_description
             }
-            print(picture_json)
+            #print(picture_json)
             picture_list=np.append(picture_list,picture_json)
 
     company_position = CompanyPosition.objects.get(position_name="technician")
@@ -743,7 +743,7 @@ def ShowDrawingDetail(request, drawing_id):
         employee_profile = EmployeeProfile.objects.get(pk=profile_position.profile_id.pk)
         technician_full_name = str(employee_profile.user.pk) + '.' + employee_profile.user.first_name + ' ' + employee_profile.user.last_name
         technicians = np.append(technicians,technician_full_name)
-        print(technicians)
+        #print(technicians)
 
     context['drawing_detail'] = selected_drawing
     context['pictures'] = picture_list

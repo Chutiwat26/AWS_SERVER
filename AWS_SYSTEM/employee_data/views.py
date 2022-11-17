@@ -22,7 +22,7 @@ def EmployeeHome(request):
         position_name = CompanyPosition.objects.get(pk=user_position.position_id.pk)
         login_user_position_list = np.append(login_user_position_list,position_name.position_name)
         
-    print(len(login_user_position_list))
+    #print(len(login_user_position_list))
     if len(login_user_position_list) != 0:
         context['position_list'] = login_user_position_list
         context['position_status'] = True
@@ -55,7 +55,7 @@ def EmployeeRegister(request):
     context = {}
     if request.method == "POST":
         data = request.POST.copy() # receive data from register page
-        print(data)
+        #print(data)
         regis_firstname = data.get('firstname')
         regis_lastname = data.get('lastname')
         regis_email = data.get('email')
@@ -104,7 +104,7 @@ def EmployeeRegister(request):
                 try:
                     login_user = authenticate(username=regis_username, password=regis_password)
                     login(request, login_user)
-                    print(context)
+                    #print(context)
                     return redirect('/aws-system-intranet/intranet-home/', context)
                 except:
                     context['warning_msg'] = 'Username or passward is invalid.'

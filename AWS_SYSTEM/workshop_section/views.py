@@ -142,11 +142,11 @@ def ShowDrawingDetail(request, drawing_id):
         context['position_status'] = False
     
     drawing_file = DrawingFile.objects.get(pk=drawing_id)
-    print(drawing_file)
+    #print(drawing_file)
     job_file = JobFile.objects.get(drawing_id=drawing_file.pk)
-    print(job_file.job_id)
+    #print(job_file.job_id)
     job_title = JobTiltle.objects.get(pk=job_file.job_id.pk)
-    print(job_title)
+    #print(job_title)
     customer = Customers.objects.get(pk=job_title.customer.pk)
     pictures_id = JobFile.objects.filter(job_id=job_file.job_id.pk)
     #print(pictures_id)
@@ -213,13 +213,13 @@ def ShowDrawingDetail(request, drawing_id):
 
     for picture_id in pictures_id:
         if picture_id.picture_id:
-            print('picture id is ')
-            print(picture_id.picture_id)
+            #print('picture id is ')
+            #print(picture_id.picture_id)
             picture_file = PictureFile.objects.get(pk=picture_id.picture_id.pk)
-            print(picture_file.pk)
+            #print(picture_file.pk)
             try:
                 picture_detail = PictureDetail.objects.get(picture_id=picture_file)
-                print(picture_detail)
+                #print(picture_detail)
                 file_pic_detail = FileDetail.objects.get(pk=picture_detail.detail_id.pk)
                 picture_description = file_pic_detail.detail
             except:
@@ -228,7 +228,7 @@ def ShowDrawingDetail(request, drawing_id):
                 "picture_path":picture_file.path,
                 "picture_description":picture_description
             }
-            print(picture_json)
+            #print(picture_json)
             picture_list=np.append(picture_list,picture_json)
 
     company_position = CompanyPosition.objects.get(position_name="technician")

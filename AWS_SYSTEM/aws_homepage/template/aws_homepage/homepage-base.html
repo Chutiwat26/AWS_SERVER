@@ -187,6 +187,20 @@
                             </li>
                           {% endif %}
                         {% endfor %}
+                      </ul>
+                      {% else %}
+                        <li class="nav-item">
+                          <a style="font-size:large;" class="me-3 text-dark text-decoration-none" href="#">Products&Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Contact us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="{% url 'about-page'%}">About us</a>
+                        </li>
                         </ul>
                       {% endif %}
                     {% else %}

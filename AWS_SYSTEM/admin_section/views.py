@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from employee_data.models import CompanyPosition, EmployeeProfile, ProfilePosition
+from customer_section.models import *
 from .models import *
 from django.contrib.auth.models import User
 import numpy as np
 # Create your views here.
+
 @login_required
 def AddAssignPosition(request):
     context = {}
@@ -13,7 +15,9 @@ def AddAssignPosition(request):
     login_profile_id = EmployeeProfile.objects.get(user=login_user)
     login_position_id = ProfilePosition.objects.filter(profile_id = login_profile_id)
     all_position = CompanyPosition.objects.all()
+    all_customer = Customers.objects.all()
     context['all_position'] = all_position
+    context['all_customer'] = all_customer
     admin_status = False
     for position_id in login_position_id:
         login_user_position = CompanyPosition.objects.get(position_name=position_id.position_id.position_name)
@@ -30,14 +34,35 @@ def AddAssignPosition(request):
     if admin_status:
         if request.method == "POST":
             data = request.POST.copy()
-            add_postion = data.get('new_position')
-            check_position = CompanyPosition.objects.filter(position_name=add_postion)
-            if len(add_postion) and len(check_position) == 0:
-                position = CompanyPosition()
-                position.position_name = add_postion
-                position.save()
-            else:
-                context['warning_msg'] = 'Invalid position name'
-        return render(request, 'admin_section/add&assign-position-page.html', context)
+            if str(data.get('add_position')) == '':
+                add_postion = data.get('new_position')
+                check_position = CompanyPosition.objects.filter(position_name=add_postion)
+                if len(add_postion) != 0 and len(check_position) == 0:
+                    position = CompanyPosition()
+                    position.position_name = add_postion
+                    position.save()
+                else:
+                    context['add_position_warning_msg'] = 'Invalid position name'
+            
+            elif str(data.get('add_customer')) == '':
+                customer_full_name = data.get('new_customer_full_name')
+                customer_initial_name = data.get('new_customer_initial_name')
+                customer_address = data.get('new_customer_address')
+                customer_tel = data.get('new_customer_tel')
+                customer_email = data.get('new_customer_email')
+                check_customer_1 = Customers.objects.filter(full_name = customer_full_name)
+                check_customer_2 = Customers.objects.filter(initial_name = customer_initial_name)
+                if len(check_customer_1) == 0 and len(check_customer_2) == 0 and len(customer_full_name) != 0 and len(customer_initial_name) != 0 :
+                    customer = Customers()
+                    customer.full_name = customer_full_name
+                    customer.initial_name = customer_initial_name
+                    customer.address = customer_address
+                    customer.telephone = customer_tel
+                    customer.email = customer_email
+                    customer.save()
+                else:
+                    context['add_customer_warning_msg'] = 'Invalid customer detail'
+
+        return render(request, 'admin_section/admin-management-page.html', context)
     else:
         return redirect('/')
