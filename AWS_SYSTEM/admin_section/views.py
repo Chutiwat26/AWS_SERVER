@@ -16,8 +16,12 @@ def AddAssignPosition(request):
     login_position_id = ProfilePosition.objects.filter(profile_id = login_profile_id)
     all_position = CompanyPosition.objects.all()
     all_customer = Customers.objects.all()
+    all_employee = User.objects.all()
+    all_profile_position = ProfilePosition.objects.all().order_by('profile_id')
     context['all_position'] = all_position
     context['all_customer'] = all_customer
+    context['all_employee'] = all_employee
+    context['all_profile_position'] = all_profile_position
     admin_status = False
     for position_id in login_position_id:
         login_user_position = CompanyPosition.objects.get(position_name=position_id.position_id.position_name)
@@ -62,6 +66,21 @@ def AddAssignPosition(request):
                     customer.save()
                 else:
                     context['add_customer_warning_msg'] = 'Invalid customer detail'
+
+            elif str(data.get('assign_position')) == '':
+                employee_username = data.get('admin_employee')
+                selected_position = data.get('employee_position')
+                selected_employee = User.objects.get(username = employee_username)
+                employee_detail = EmployeeProfile.objects.get(user = selected_employee)
+                position_detail = CompanyPosition.objects.get(position_name = selected_position)
+                try:
+                    check_employee_position = ProfilePosition.objects.get(profile_id=employee_detail.pk, position_id=position_detail.pk)
+                    context['assign_position_warning_msg'] = 'Invalid assigning position'
+                except:
+                    employee_position = ProfilePosition()
+                    employee_position.profile_id = employee_detail
+                    employee_position.position_id = position_detail
+                    employee_position.save()
 
         return render(request, 'admin_section/admin-management-page.html', context)
     else:

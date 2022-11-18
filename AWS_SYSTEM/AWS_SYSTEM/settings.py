@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'workshop_section',
     'customer_section',
     'admin_section',
+    'purchase_section',
 ]
 
 
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'AWS_SYSTEM.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ BASE_DIR / 'employee_data/template', BASE_DIR / 'aws_homepage/template', BASE_DIR / 'design_section/template', BASE_DIR / 'workshop_section/template', BASE_DIR / 'customer_section/template', BASE_DIR / 'admin_section/template'],
+        'DIRS': [ BASE_DIR / 'employee_data/template', BASE_DIR / 'aws_homepage/template', BASE_DIR / 'design_section/template', BASE_DIR / 'workshop_section/template', BASE_DIR / 'customer_section/template', BASE_DIR / 'admin_section/template', BASE_DIR / 'purchase_section/template'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

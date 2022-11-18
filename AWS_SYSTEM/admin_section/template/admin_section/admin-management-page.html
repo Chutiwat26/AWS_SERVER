@@ -20,6 +20,13 @@
         padding-left: 10px;
         padding-right: 10px;
     }
+
+    .grid-container-assign-position{
+        display: grid;
+        grid-template-columns: auto auto;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 </style>
   <main class="form-group w-60 m-auto">
     <h1 class="h2 mb-3 fw-bold">Add position in the company</h1>
@@ -118,6 +125,68 @@
                 </table>
             </div>
     </div>
+    <br>
+    <hr style="color:black;border:none;height:5px;background-color:black;">
+    <h1 class="h2 mb-3 fw-bold">Assign position to employee</h1>
+    <br>
+    <div class="grid-container-add-customer">
+        <div style="padding-right: 20px; padding-left: 20px;" width="60vw">
+            {% if assign_position_warning_msg %}
+                <h3 class="p-3 mb-2 bg-danger text-white">{{ assign_position_warning_msg }}</h3>
+            {% endif %}
+            <form method="POST" novalidate>
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="admin_employee" style="font-size:16px;">กรุณาเลือกพนักงาน</label>
+                    <select class="form-select form-select-lg mb-3" aria-label="Default select example" name="admin_employee" id="admin_employee" style="height: 50px; font-size:18px;">
+                      <option selected>กรุณาเลือกพนักงาน</option>
+                    {% for employee in all_employee %}
+                      <option value="{{ employee.username }}">{{ employee.first_name }}&nbsp;{{ employee.last_name }}&nbsp;({{ employee.username }})</option>
+                    {% endfor %}
+                    </select>
+                  </div>
+                <br>
+                <div class="form-group">
+                    <label for="employee_position" style="font-size:16px;">กรุณาเลือกตำแหน่งงาน</label>
+                    <select class="form-select form-select-lg mb-3" aria-label="Default select example" name="employee_position" id="employee_position" style="height: 50px; font-size:18px;">
+                      <option selected>กรุณาเลือกตำแหน่งงาน</option>
+                    {% for position in all_position %}
+                      <option value="{{ position.position_name }}">{{ position.position_name }}</option>
+                    {% endfor %}
+                    </select>
+                  </div>
+                <br>
+                <button class="w-100 btn btn-lg btn-primary" type="submit" name="assign_position">Assign</button>
+            </form>
+        </div>
+        <div style="padding: 20px;" width="60%">
+            <table class="table table-bordered">
+                <thead class="table-secondary">
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Employee</th>
+                        <th scope="col">Position</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for profile_position in all_profile_position %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            {% for employee in all_employee %}
+                                {% if profile_position.profile_id.user.username == employee.username %}
+                                        <td>{{ employee.first_name }}&nbsp;{{ employee.last_name }}</td>
+                                        <td>{{profile_position.position_id.position_name}}</td>
+                                    </tr>
+                                {% endif %}
+                                
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</div>
     
     
   </main>
