@@ -7,41 +7,6 @@ from employee_data.models import EmployeeProfile
 
 
 # Create your models here.
-'''
-
-class DrawingFile(models.Model):
-    customer = models.CharField(max_length=20, null=True, blank=True)
-    title = models.CharField(max_length=200) #next time will link with PO
-    description = models.TextField(null=True, blank=True)
-    draftsman = models.CharField(max_length=50, null=True, blank=True)
-    picture1 = models.ImageField(upload_to='picture', null=True, blank=True)
-    picture2 = models.ImageField(upload_to='picture', null=True, blank=True)
-    picture3 = models.ImageField(upload_to='picture', null=True, blank=True)
-    picture4 = models.ImageField(upload_to='picture', null=True, blank=True)
-    picture5 = models.ImageField(upload_to='picture', null=True, blank=True)
-    drawing1 = models.FileField(upload_to='file', null=True, blank=True)
-    drawing2 = models.FileField(upload_to='file', null=True, blank=True)
-    drawing3 = models.FileField(upload_to='file', null=True, blank=True)
-    drawing4 = models.FileField(upload_to='file', null=True, blank=True)
-    drawing5 = models.FileField(upload_to='file', null=True, blank=True)
-    submit_date = models.DateTimeField(null=True, blank=True)
-    process_date = models.DateTimeField(null=True, blank=True)
-    finish_date = models.DateTimeField(null=True, blank=True)
-    drawing1_status = models.CharField(max_length=20, null=True, blank=True)
-    drawing2_status = models.CharField(max_length=20, null=True, blank=True)
-    drawing3_status = models.CharField(max_length=20, null=True, blank=True)
-    drawing4_status = models.CharField(max_length=20, null=True, blank=True)
-    drawing5_status = models.CharField(max_length=20, null=True, blank=True)
-    drawing1_name = models.CharField(max_length=200, null=True, blank=True)
-    drawing2_name = models.CharField(max_length=200, null=True, blank=True)
-    drawing3_name = models.CharField(max_length=200, null=True, blank=True)
-    drawing4_name = models.CharField(max_length=200, null=True, blank=True)
-    drawing5_name = models.CharField(max_length=200, null=True, blank=True)
-
-    def __str__(self):
-        return self.title
-
-'''
 
 
 class JobTiltle(models.Model):

@@ -186,6 +186,11 @@
                                 <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/add-assign-postion/" >&nbsp;&nbsp;Admin</a>
                             </li>
                           {% endif %}
+                          {% if position == 'purchasing' %}
+                            <li class="nav-item">
+                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/purchase-section/" >&nbsp;&nbsp;Purchase</a>
+                            </li>
+                          {% endif %}
                         {% endfor %}
                       </ul>
                       {% else %}

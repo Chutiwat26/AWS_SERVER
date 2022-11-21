@@ -33,15 +33,14 @@
     <br>
     <div class="grid-container-add-position">
         <div style="padding-right: 20px; padding-left: 20px;" width="60vw">
-            <h3 class="h3 mb-3 fw-normal">Insert new position name</h1>
             {% if add_position_warning_msg %}
                 <h3 class="p-3 mb-2 bg-danger text-white">{{ add_position_warning_msg }}</h3>
             {% endif %}
             <form method="POST" novalidate>
                 {% csrf_token %}
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="new_position" name="new_position" placeholder="New position" style="height: 60px; font-size:25px;">
-                    <label for="new_position">New position</label>
+                    <label for="new_position" style="font-size:22px;">New position</label>
+                    <input type="text" class="form-control" id="new_position" name="new_position" placeholder="New position" style="height: 40px; font-size:20px;">
                 </div>
                 <br>
                 <button class="w-100 btn btn-lg btn-primary" type="submit" name="add_position">Add</button>
@@ -72,35 +71,34 @@
     <br>
     <div class="grid-container-add-customer">
             <div style="padding-right: 20px; padding-left: 20px;" width="60vw">
-                <h3 class="h3 mb-3 fw-normal">Insert new customer detail</h1>
                 {% if add_customer_warning_msg %}
                     <h3 class="p-3 mb-2 bg-danger text-white">{{ add_customer_warning_msg }}</h3>
                 {% endif %}
                 <form method="POST" novalidate>
                     {% csrf_token %}
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="new_customer_full_name" name="new_customer_full_name" placeholder="ชื่อเต็มของบริษัท" style="height: 60px; font-size:25px;" required>
-                        <label for="new_customer_full_name">ชื่อเต็มของบริษัท</label>
+                        <label for="new_customer_full_name" style="font-size:22px;">ชื่อเต็มของบริษัท</label>
+                        <input type="text" class="form-control" id="new_customer_full_name" name="new_customer_full_name" placeholder="ชื่อเต็มของบริษัท" style="height: 40px; font-size:20px;" required>
                     </div>
                     <br>
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="new_customer_initial_name" name="new_customer_initial_name" placeholder="ชื่อย่อของบริษัท" style="height: 60px; font-size:25px;" required>
-                        <label for="new_customer_initial_name">ชื่อย่อของบริษัท</label>
+                        <label for="new_customer_initial_name" style="font-size:22px;">ชื่อย่อของบริษัท</label>
+                        <input type="text" class="form-control" id="new_customer_initial_name" name="new_customer_initial_name" placeholder="ชื่อย่อของบริษัท" style="height: 40px; font-size:20px;" required>
                     </div>
                     <br>
                     <div class="form-floating">
-                        <textarea type="text" class="form-control" id="new_customer_address" name="new_customer_address" placeholder="ที่อยู่ของบริษัท" style="height: 60px; font-size:25px;"></textarea>
-                        <label for="new_customer_address">ที่อยู่ของบริษัท</label>
+                        <label for="new_customer_address" style="font-size:22px;">ที่อยู่ของบริษัท</label>
+                        <textarea type="text" class="form-control" id="new_customer_address" name="new_customer_address" placeholder="ที่อยู่ของบริษัท" style="height: 20vh; font-size:20px;"></textarea>
                     </div>
                     <br>
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="new_customer_tel" name="new_customer_tel" placeholder="เบอร์โทรศัพท์" style="height: 60px; font-size:25px;">
-                        <label for="new_customer_tel">เบอร์โทรศัพท์</label>
+                        <label for="new_customer_tel" style="font-size:22px;">เบอร์โทรศัพท์</label>
+                        <input type="text" class="form-control" id="new_customer_tel" name="new_customer_tel" placeholder="เบอร์โทรศัพท์" style="height: 40px; font-size:20px;">
                     </div>
                     <br>
                     <div class="form-floating">
-                        <input type="text" class="form-control" id="new_customer_email" name="new_customer_email" placeholder="Email" style="height: 60px; font-size:25px;" required>
-                        <label for="new_customer_email">Email</label>
+                        <label for="new_customer_email" style="font-size:22px;">Email</label>
+                        <input type="text" class="form-control" id="new_customer_email" name="new_customer_email" placeholder="Email" style="height: 40px; font-size:20px;">
                     </div>
                     <br>
                     <button class="w-100 btn btn-lg btn-primary" type="submit" name="add_customer">Add</button>
@@ -137,8 +135,8 @@
             <form method="POST" novalidate>
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="admin_employee" style="font-size:16px;">กรุณาเลือกพนักงาน</label>
-                    <select class="form-select form-select-lg mb-3" aria-label="Default select example" name="admin_employee" id="admin_employee" style="height: 50px; font-size:18px;">
+                    <label for="admin_employee" style="font-size:22px;">กรุณาเลือกพนักงาน&nbsp;&nbsp;</label>
+                    <select class="form-select form-select-lg mb-3" aria-label="Default select example" name="admin_employee" id="admin_employee" style="height: 40px; font-size:20px;">
                       <option selected>กรุณาเลือกพนักงาน</option>
                     {% for employee in all_employee %}
                       <option value="{{ employee.username }}">{{ employee.first_name }}&nbsp;{{ employee.last_name }}&nbsp;({{ employee.username }})</option>
@@ -147,8 +145,8 @@
                   </div>
                 <br>
                 <div class="form-group">
-                    <label for="employee_position" style="font-size:16px;">กรุณาเลือกตำแหน่งงาน</label>
-                    <select class="form-select form-select-lg mb-3" aria-label="Default select example" name="employee_position" id="employee_position" style="height: 50px; font-size:18px;">
+                    <label for="employee_position" style="font-size:22px;">กรุณาเลือกตำแหน่งงาน&nbsp;&nbsp;</label>
+                    <select class="form-select form-select-lg mb-3" aria-label="Default select example" name="employee_position" id="employee_position" style="height: 40px; font-size:20px;">
                       <option selected>กรุณาเลือกตำแหน่งงาน</option>
                     {% for position in all_position %}
                       <option value="{{ position.position_name }}">{{ position.position_name }}</option>
@@ -186,7 +184,7 @@
                 </tbody>
             </table>
         </div>
-</div>
+    </div>
     
     
   </main>
