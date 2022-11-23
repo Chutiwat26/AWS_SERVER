@@ -1,11 +1,11 @@
 {% extends 'employee_data/employee_data-base.html' %}
 
-{% block employee-title-content %}
+{% block title-content %}
   <title>Log in</title>
-{% endblock employee-title-content %}
+{% endblock title-content %}
   
 
-{% block employee-main-content %}
+{% block main-content %}
   <main class="form-signin w-80 m-auto text-center">
     <form method="POST" novalidate>
       {% csrf_token %}
@@ -32,4 +32,4 @@
       <span><a class="py-2 text-dark text-center h4 text-underline-hover" href="{% url 'register-page' %}">Register</a></span>
     </form>
   </main>
-{% endblock employee-main-content %}
+{% endblock main-content %}

@@ -13,7 +13,7 @@ import numpy as np
 # Create your views here.
 
 @login_required
-def DraftsMan(request):
+def DrawingUpload(request):
     context = {}
     login_user_position_list = []
     login_user = request.user

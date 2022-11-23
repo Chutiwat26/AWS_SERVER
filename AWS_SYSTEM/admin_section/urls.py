@@ -3,5 +3,5 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('add-assign-postion/', AddAssignPosition, name='add-assign-page'),
+    path('admin-page/', AdminPage, name='admin-page'),
 ]

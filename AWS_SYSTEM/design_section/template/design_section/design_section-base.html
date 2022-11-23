@@ -7,25 +7,12 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.101.0">
-    {% block design-title-content %}
+    {% block title-content %}
     <title>Advanced & Wise Solution Co.,Ltd.</title>
-    {% endblock design-title-content %}
+    {% endblock title-content %}
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/checkout/">
-
-    <link href="{% static 'css/bootstrap_min.css' %}" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    
-    <!-- Favicons -->
-<link rel="apple-touch-icon" href="https://getbootstrap.com/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://getbootstrap.com/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://getbootstrap.com/docs/5.2/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://getbootstrap.com/docs/5.2/assets/img/favicons/manifest.json">
-<link rel="mask-icon" href="https://getbootstrap.com/docs/5.2/assets/img/favicons/safari-pinned-tab.svg" color="#712cf9">
-<link rel="icon" href="https://getbootstrap.com/docs/5.2/assets/img/favicons/favicon.ico">
-<meta name="theme-color" content="#712cf9">
-
-
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
 
     <style>
     .tab {
@@ -130,116 +117,136 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="{% static 'css/pricing.css' %}" rel="stylesheet">
     <link href="{% static 'css/MyCss.css' %}" rel="stylesheet" type="text/css">
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     
   </head>
   <body onload="OnLoadDesign();">
     <div class="container-fluid py-3">
       <div class="container-fluid">
         <header>
-          <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-inverse">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default">
             <div class="container-fluid">
               <div class="navbar-header">
-                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                <a href="/" class="navbar-brand">
+                  <span style="font-size:x-large; color:black;">
                   <img src="{% static 'img/AWS logo.png' %}" style="width:60px;" class="rounded-pill">
-                  <span class="navbar-brand" style="font-size:x-large; color:black;">Advanced & Wise Solution Co.,Ltd.</span>
+                  Advanced & Wise Solution Co.,Ltd.</span>
                 </a>
               </div>
-              <button  class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse container-fluid" id="navbarSupportedContent">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+              
+              <div class="collapse navbar-collapse" id="collapsibleNavbar">
                   <ul class="nav navbar-nav navbar-left">
                     {% if user.is_authenticated %}
                       {% if position_status == True %}
                         {% for position in position_list %}
                           {% if position == '' %}
                             <li class="nav-item">
-                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/intranet-home/" >&nbsp;&nbsp;Home</a>
+                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="{% url 'aws-system-home'%}" >&nbsp;&nbsp;Home</a>
                             </li>
                           {% endif %}
                           {% if position == 'technician' %}
                             <li class="nav-item">
-                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/workshop-home/" >&nbsp;&nbsp;Workshop</a>
+                              <div class="dropdown px-2">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="workshopDropdown" data-bs-toggle="dropdown" aria-expanded="false" >Workshop</button>
+                                <ul class="dropdown-menu" aria-labelledby="workshopDropdown">
+                                  <li><a style="font-size:large;" class="me-3 py-2 text-black text-decoration-none" href="{% url 'workshop-home-page'%}" >&nbsp;&nbsp;Work list</a></li>
+                                  <li><a style="font-size:large;" class="me-3 py-2 text-black text-decoration-none" href="{% url 'drawing-status'%}" >&nbsp;&nbsp;Status</a></li>
+                                </ul>
+                              </div>
                             </li>
                           {% endif %}
                           {% if position == 'quality control' %}
                             <li class="nav-item">
-                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/qc-home/" >&nbsp;&nbsp;QC</a>
+                              <div class="dropdown px-2">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="qcDropdown" data-bs-toggle="dropdown" aria-expanded="false" >QC</button>
+                                <ul class="dropdown-menu" aria-labelledby="qcDropdown">
+                                  <li><a style="font-size:large;" class="me-3 py-2 text-black text-decoration-none" href="{% url 'qc-home-page'%}" >&nbsp;&nbsp;QC list</a></li>
+                                  <li><a style="font-size:large;" class="me-3 py-2 text-black text-decoration-none" href="{% url 'drawing-status'%}" >&nbsp;&nbsp;Status</a></li>
+                                </ul>
+                              </div>
                             </li>
                           {% endif %}
                           {% if position == 'draftsman' %}
                             <li class="nav-item">
-                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/drawing-upload/" >&nbsp;&nbsp;Drawing</a>
-                            </li>
-                          {% endif %}
-                          {% if position == 'drawing status' %}
-                            <li class="nav-item">
-                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/drawing-status/" >&nbsp;&nbsp;Status</a>
+                              <div class="dropdown px-2">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="draftmanDropdown" data-bs-toggle="dropdown" aria-expanded="false" >Drawing</button>
+                                <ul class="dropdown-menu" aria-labelledby="draftmanDropdown">
+                                  <li><a style="font-size:large;" class="me-3 py-2 text-black text-decoration-none" href="{% url 'drawing-upload'%}" >&nbsp;&nbsp;Drawing upload</a></li>
+                                  <li><a style="font-size:large;" class="me-3 py-2 text-black text-decoration-none" href="{% url 'drawing-status'%}" >&nbsp;&nbsp;Status</a></li>
+                                </ul>
+                              </div>
                             </li>
                           {% endif %}
                           {% if position == 'administration' %}
                             <li class="nav-item">
-                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/add-assign-postion/" >&nbsp;&nbsp;Admin</a>
+                              <div class="dropdown px-2">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false" >Admin</button>
+                                <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                  <li><a style="font-size:large;" class="me-3 py-2 text-black text-decoration-none" href="{% url 'admin-page'%}" >&nbsp;&nbsp;Dashboard</a></li>
+                                </ul>
+                              </div>
                             </li>
                           {% endif %}
                           {% if position == 'purchasing' %}
                             <li class="nav-item">
-                                <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="/aws-system-intranet/purchase-section/" >&nbsp;&nbsp;Purchase</a>
+                              <div class="dropdown px-2">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="purchaseDropdown" data-bs-toggle="dropdown" aria-expanded="false" >Purchase</button>
+                                <ul class="dropdown-menu" aria-labelledby="purchaseDropdown">
+                                  <li><a style="font-size:large;" class="me-3 py-2 text-black text-decoration-none" href="{% url 'purchase-add-customer'%}" >&nbsp;&nbsp;Add customer</a></li>
+                                </ul>
+                              </div>
                             </li>
                           {% endif %}
                         {% endfor %}
                       </ul>
                       {% else %}
                         <li class="nav-item">
-                          <a style="font-size:large;" class="me-3 text-dark text-decoration-none" href="#">Products&Services</a>
+                          <a style="font-size:large;" class="mx-3 text-dark text-decoration-none" href="#">|&nbsp;&nbsp;Products&Services</a>
                         </li>
                         <li class="nav-item">
-                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Blog</a>
+                            <a style="font-size:large;" class="mx-3 text-black text-decoration-none" href="#">|&nbsp;&nbsp;Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Contact us</a>
+                            <a style="font-size:large;" class="mx-3 text-black text-decoration-none" href="#">|&nbsp;&nbsp;Contact us</a>
                         </li>
                         <li class="nav-item">
-                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="{% url 'about-page'%}">About us</a>
+                            <a style="font-size:large;" class="mx-3 text-black text-decoration-none" href="{% url 'about-page'%}">|&nbsp;&nbsp;About us</a>
                         </li>
                         </ul>
                       {% endif %}
                     {% else %}
                         <li class="nav-item">
-                            <a style="font-size:large;" class="me-3 text-dark text-decoration-none" href="#">Products&Services</a>
+                            <a style="font-size:large;" class="mx-3 text-dark text-decoration-none" href="#">|&nbsp;&nbsp;Products&Services</a>
                         </li>
                         <li class="nav-item">
-                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Blog</a>
+                            <a style="font-size:large;" class="mx-3 text-black text-decoration-none" href="#">|&nbsp;&nbsp;Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="#">Contact us</a>
+                            <a style="font-size:large;" class="mx-3 text-black text-decoration-none" href="#">|&nbsp;&nbsp;Contact us</a>
                         </li>
                         <li class="nav-item">
-                            <a style="font-size:large;" class="me-3 text-black text-decoration-none" href="{% url 'about-page'%}">About us</a>
+                            <a style="font-size:large;" class="mx-3 text-black text-decoration-none" href="{% url 'about-page'%}">|&nbsp;&nbsp;About us</a>
                         </li>
                         </ul>
                     {% endif %}
-                  <ul class="nav navbar-nav navbar-right">
+
                     {% if user.is_authenticated %}
-                      <li class="nav-item">
-                        <a style="font-size:large;" class="me-3 text-black text-decoration-none my-2 my-lg-0" href="{% url 'aws-system-home' %}" >สวัสดี &nbsp; คุณ{{ request.user.first_name }} &nbsp;&nbsp;</a>
-                      </li>
-                      <li class="nav-item">
-                        <form class="form-inline my-lg-0 me-3 " method="POST" action='{% url "logout-page" %}' novalidate>
-                          {% csrf_token %}
-                          <button style="font-size:large;" type="submit" class="mt-2 mx-3 btn btn-danger">Log out</button>
-                        </form>
-                      </li>
+                  <form class="navbar-nav ms-auto mb-2 mb-lg-0" method="POST" action='{% url "logout-page" %}' novalidate>
+                    {% csrf_token %}
+                      <a style="font-size:large;" class="mt-2 mx-2 text-black text-decoration-none" href="{% url 'aws-system-home' %}" >สวัสดี &nbsp; คุณ{{ request.user.first_name }} &nbsp;&nbsp;</a>
+                      <button style="font-size:large;" type="submit" class="me-3 btn btn-danger">Log out</button>
+                    </form>
                     {% else %}
-                      <li class="nav-item">
-                        <a style="font-size:large;" class=" text-black text-decoration-none" href="{% url 'login-page'%}">Log in</a>
-                      </li>
+                    <form class="navbar-nav ms-auto mb-2 mb-lg-0">
+                      <a style="font-size:large;" class=" text-black text-decoration-none" href="{% url 'login-page'%}">Log in</a>
+                    </form>
                     {% endif %}
-                  </ul>
               </div>
             </div>
           </nav>
@@ -247,8 +254,10 @@
       </div>
 
       <div class="container-fluid py-3">
-        {% block design-main-content %}
-        {% endblock design-main-content %}
+        {% block header-detail %}
+        {% endblock header-detail %}
+        {% block main-content %}
+        {% endblock main-content %}
       </div>
     
       
@@ -259,8 +268,6 @@
     <p class="mb-1">&copy; 2022 Advanced & Wise Solution Co., Ltd.</p>
   </footer>
   
-
-  <script src="{% static 'js/bootstrap-bundle-min.js' %}" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 
   <script src="{% static 'js/form-validation.js' %}"></script>
   

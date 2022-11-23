@@ -1,11 +1,11 @@
 {% extends 'employee_data/employee_data-base.html' %}
 
-{% block employee-title-content %}
+{% block title-content %}
   <title>Intranet Homepage</title>
-{% endblock employee-title-content %}
+{% endblock title-content %}
   
    
-{% block employee-main-content %}
+{% block main-content %}
 {% if user.is_authenticated %}
   <h1>สวัสดี &nbsp; คุณ{{ request.user.first_name }} &nbsp; {{ request.user.last_name }} </h1>
   <br>
@@ -20,7 +20,7 @@
 {% endif %}
 
 
-{% endblock employee-main-content %}
+{% endblock main-content %}
 
 
     

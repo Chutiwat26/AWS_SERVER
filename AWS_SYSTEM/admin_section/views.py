@@ -9,7 +9,7 @@ from django.http import JsonResponse
 # Create your views here.
 
 @login_required
-def AddAssignPosition(request):
+def AdminPage(request): #Ajax
     context = {}
     login_user_position_list = []
     login_user = request.user
@@ -75,10 +75,10 @@ def AddAssignPosition(request):
             elif str(data.get('assign_position')) == '':
                 employee_username = data.get('admin_employee')
                 selected_position = data.get('employee_position')
-                selected_employee = User.objects.get(username = employee_username)
-                employee_detail = EmployeeProfile.objects.get(user = selected_employee)
-                position_detail = CompanyPosition.objects.get(position_name = selected_position)
                 try:
+                    selected_employee = User.objects.get(username = employee_username)
+                    employee_detail = EmployeeProfile.objects.get(user = selected_employee)
+                    position_detail = CompanyPosition.objects.get(position_name = selected_position)
                     check_employee_position = ProfilePosition.objects.get(profile_id=employee_detail.pk, position_id=position_detail.pk)
                     context['assign_position_warning_msg'] = 'Invalid assigning position'
                 except:
